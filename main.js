@@ -1,5 +1,6 @@
 const   url='http://127.0.0.1:8000/',
         btnEnviarIp = document.getElementById("btnEnviar"),
+        btnSubirGra = document.getElementById("btnSubirGra"),
         ipEnviar = document.getElementById("ip"),
         comunidad = document.getElementById("comunidad"),
         mensaje1 = document.getElementById("alerta1"),
@@ -85,6 +86,22 @@ btnEnviarIp.addEventListener("click", () => {
     getAncho(dataSend);
 }); //fin de btnEnviarIp
 
+btnSubirGra.addEventListener("click", () => {
+    var canvas = document.getElementById("myChart");
+    canvas.toBlob(function(blob) {
+        const formData = new FormData();
+        formData.append('file', blob, 'grafica.png');
+        subir(formData);
+    });
+
+    var canvas2 = document.getElementById("myChart2");
+    canvas2.toBlob(function(blob) {
+        const formData = new FormData();
+        formData.append('file', blob, 'grafica2.png');
+        subir(formData);
+    });   
+});//fin de btnSubirGra
+
 /*
 *****************
 PETICIONES GET  *
@@ -99,7 +116,6 @@ async function getIps() {
         })
         .then(data=> {
             imprimirIps(data)
-
         })
         .catch(err=> {
             console.error(err);
@@ -127,12 +143,14 @@ async function getAncho(dataSend) {
         titulo2.style.display = "block";
         crearGra(ctx,tituloIn,traficIn,colorAzul,colorRojo);
         crearGra(ctx2,tituloOut,traficOut,colorRojo,colorAzul);
+        btnSubirGra.style.display = "block";
     })
     .catch(function(err) {
         console.error(err);
     });
 }//fin de getAncho
 
+//funcion que obtiene la informacion SNMP de un dispositivo
 async function getDatos(dataSend) {
     await fetch(url+'getDatos', {
         method: 'POST',
@@ -152,6 +170,32 @@ async function getDatos(dataSend) {
         console.error(err);
     });
 }//fin de getDatos
+
+//funcion para subir la imagen al servidor de la grafica
+async function subir(dataSend) {
+    await fetch(url+'upload', {
+        headers:{
+            'Access-Control-Allow-Origin':'*'
+        },
+        method: 'POST',
+        body: dataSend
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        if (data.hasOwnProperty('ok')){
+            if (data.ok==='true') {
+                alert('Se guardo la grafica correctamente');
+            }else{
+                alert(data.message);
+            }
+        }
+    })
+    .catch(function(err) {
+        console.error(err);
+    });
+}//fin de subir
 
 
 
