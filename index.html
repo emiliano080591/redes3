@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <title>Proyecto redes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!--Lugar donde se cargan las ips-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="alert alert-info" role="alert">
+                    <h1>Proyecto administración de servicios en red</h1>
+                </div><br>
+                <div class="alert alert-warning" role="alert" id="alerta2">
+                    Cargando las ips disponibles
+                </div><br>
+                <table class="table" id="pruebaIps">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ip's disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div><!--./col-*-*-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <center>
+                <h3>Ingresa la ip y la comunidad para hacer la consulta SNMP</h3>
+                <form action="" method="">
+                    <table>
+                        <tr>
+                            <td><label for="">Comunidad</label></td>
+                            <td><input type="text" id="comunidad" name="comunidad"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Ip</label></td>
+                            <td> <input type="text" id="ip" name="ip"></td>
+                        </tr>
+                    </table><br>                
+                    <input type="button" value="Enviar" class="btn btn-primary btn-lg btn-block" id="btnEnviar">
+                    <br>
+                </form>
+                <div class="alert alert-danger" role="alert" id="alerta1" style="display:none;">
+                    Espera 25 segundos mientras recolectamos la información del ancho de banda.
+                </div>
+                </center>
+                <br><br>
+            </div><!--./col-*-*-->
+            <!--Informacion-->
+            <div class="col-sm-12 col-md-12 col-lg-12" id="titulo1" style="display: none;">
+                <center><h4 style="color:red;">Información del dispositivo scaneado</h4></center>
+            </div>
+            <!--Titulo de las graficas-->
+            <div class="col-sm-12 col-md-12 col-lg-12" id="titulo2" style="display: none;">
+                <center><h4 style="color:red;">Gráficas de tráfico de entrada y salida</h4></center>
+            </div>
+            <!--Grafica de trafico de entrada-->
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div><!--fin grafica de enrada-->
+            <!--Grafica de trafico de salida-->
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <canvas id="myChart2" width="400" height="400"></canvas>
+            </div><!--fin grafica de salida-->
+        </div><!--./row-->
+    </div><!--./container-->
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+    <script type="text/javascript">
+        getIps();
+    </script>
+</body>
+</html>
